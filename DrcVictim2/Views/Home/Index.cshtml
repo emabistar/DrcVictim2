@@ -1,0 +1,171 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div class="row">
+        <div class="container m-2">
+            <div class="row shadow-sm p-5">
+                <div class="col shadow-sm p-5">
+
+                    <h4 class="display-6 text-center">What is Lorem Ipsum?</h4>
+                    <table class="columns">
+                        <tr>
+                            <td><div id="piechart_div" style="border: 1px solid #ccc"></div></td>
+
+                        </tr>
+                    </table>
+                </div>
+                <div class="col  shadow-sm p-5">
+                    <h4 class="display-6 text-center">What is Lorem Ipsum?</h4>
+                    <table class="columns">
+                        <tr>
+                            <td><div id="barchart_div" style="border: 1px solid #ccc"></div></td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="row  shadow-sm p-5">
+                <div class="col shadow-sm p-5">
+                    <h2 class="display-6 text-center">What is Lorem Ipsum?</h2>
+                    <table class="columns">
+                        <tr>
+                            <td><div id="line_chart_div" style="border: 1px solid #ccc"></div></td>
+
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col  shadow-sm p-5">
+                    <h2 class="display-6 text-center">What is Lorem Ipsum?</h2>
+                    <table class="columns">
+                        <tr>
+                            <td><div id="donut_chart_div" style="border: 1px solid #ccc"></div></td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+    // Load Charts and the corechart and barchart packages.
+    google.charts.load('current', { 'packages': ['corechart'] });
+
+    // Draw the pie chart and bar chart when Charts is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+
+
+    function drawChart() {
+
+
+        $.get('/api/victims', {}, function (data) {
+            // console.log(data)
+
+            var tdata = new google.visualization.DataTable();
+          
+            var rdata = new google.visualization.DataTable();
+
+            var ndata = new google.visualization.DataTable();
+
+            tdata.addColumn('string', 'victim');
+            tdata.addColumn('number', 'value');
+            var allRows = [];
+            for (var i = 0; i < data.deathPerRegion.length; i++) {
+              
+                allRows.push([data.deathPerRegion[i].key, data.deathPerRegion[i].value])
+       
+            }
+            tdata.addRows(allRows)
+            //Second Row
+            var r_allRows = [];
+            rdata.addColumn('string', 'victim');
+            rdata.addColumn('number', 'value');
+            for (var i = 0; i < data.totalDeathPerYear.length; i++) {
+
+                r_allRows.push([data.totalDeathPerYear[i].key, data.totalDeathPerYear[i].value])
+
+            }
+            rdata.addRows(r_allRows)
+           
+
+            // thrid rows
+            var n_allRows = [];
+
+            ndata.addColumn('string', 'victim');
+            ndata.addColumn('number', 'value');
+            for (var i = 0; i < data.deathPerCity.length; i++) {
+
+                n_allRows.push([data.deathPerCity[i].key, data.deathPerCity[i].value])
+
+            }
+            ndata.addRows(n_allRows)
+
+
+            // first chart
+            var donut_Chart_options = {
+                title: 'Pie Chart: Number of victims by regions',
+                width: 400,
+                height: 300,
+                pieHole: 0.4,
+                legend: { position: 'bottom' }
+
+            };
+            var piechart1 = new google.visualization.PieChart(document.getElementById('donut_chart_div'));
+            piechart1.draw(ndata, donut_Chart_options);
+
+            var barchart_options = {
+                title: 'Barchart: Numberof victims per City',
+                width: 400,
+                height: 300,
+                legend: 'none',
+               
+            };
+
+
+
+            
+            var piechart_options = {
+                title: 'Barchart: Numberof victims per Region',
+                width: 400,
+                height: 300,
+                legend: 'none',
+
+            };
+
+            var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+            piechart.draw(tdata, piechart_options);
+
+
+
+
+
+            var barchart_options = {
+                title: 'Barchart: Numberof victims per year',
+                width: 400,
+                height: 300,
+                legend: 'none'
+            };
+            var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
+            barchart.draw(tdata, barchart_options);
+
+
+            //line chart
+            var barchart_options = {
+                title: 'LineChart: Numberof victims per year',
+                width: 400,
+                height: 300,
+                curveType:'function',
+                legend: { position:'bottom' }
+            };
+            var barchart = new google.visualization.LineChart(document.getElementById('line_chart_div'));
+            barchart.draw(rdata, barchart_options);
+        });
+    }
+</script>

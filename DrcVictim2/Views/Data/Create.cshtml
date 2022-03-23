@@ -1,0 +1,79 @@
+﻿@model VictimsViewModel
+@using DrcVictim2.Models
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <p class="text-center"> Create  a data set</p>
+
+            <div class="row">
+                <div class=" col-md-8 offset-2">
+                    <form asp-action="Create">
+                        <div aps-validation-summary="ModelOnly" class="text-danger">
+                            <div class="col-md-12 ">
+
+                                <div class=" form-group">
+                                    <label asp-for="RegisteredDate" class="control-label"></label>
+                                    <input asp-for="RegisteredDate" class="form-control" />
+                                    <span asp-validation-for="RegisteredDate" class=" text-danger"></span>
+
+                                </div>
+                                <div class=" form-group">
+                                    <label asp-for="NumberofDeath" class="control-label"></label>
+                                    <input asp-for="NumberofDeath" class="form-control" />
+                                    <span asp-validation-for="NumberofDeath" class=" text-danger"></span>
+
+                                </div>
+
+                                <div class=" form-group">
+                                    <label asp-for="City" class="control-label"></label>
+                                    <input asp-for="City" class="form-control" />
+                                    <span asp-validation-for="City" class=" text-danger"></span>
+
+                                </div>
+
+                                <div class=" form-group">
+                                    <label asp-for="RegionId" class="control-label"></label>
+                                    <select asp-for="RegionId" class="form-control" asp-items="ViewBag.Regions"></select>
+                                    <span asp-validation-for="RegionId" class=" text-danger"></span>
+
+                                </div>
+
+
+
+                                <div class=" form-group">
+                                    <label asp-for="Rescue" class="control-label"></label>
+                                    <input asp-for="Rescue" class="form-control" />
+                                    <span asp-validation-for="Rescue" class=" text-danger"></span>
+
+                                </div>
+                                <div class=" form-group">
+                                    <label asp-for="Source" class="control-label"></label>
+                                    <input asp-for="Source" class="form-control" />
+                                    <span asp-validation-for="Source" class=" text-danger"></span>
+
+                                </div>
+
+                                <div class=" form-group">
+
+                                    <input type="submit" value=" Create" class="btn btn-outline-success" />
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
