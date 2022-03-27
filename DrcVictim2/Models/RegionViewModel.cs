@@ -26,5 +26,10 @@ namespace DrcVictim2.Models
         public DateTime RegisteredDate { get; set; }
 
         IEnumerable<Victim> Victim { get; set; }
+
+        public static explicit operator RegionViewModel(Region v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

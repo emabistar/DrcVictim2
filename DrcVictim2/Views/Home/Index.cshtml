@@ -3,69 +3,91 @@
 }
 
 <div class="text-center">
-    <div class="row">
+    <div class="spinner-border text-primary"
+         id="spinner" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <div class="row" >
+
         <div class="container m-2">
-            <div class="row shadow-sm p-5">
-                <div class="col shadow-sm p-5">
 
-                    <h4 class="display-6 text-center">What is Lorem Ipsum?</h4>
-                    <table class="columns">
-                        <tr>
-                            <td><div id="piechart_div" style="border: 1px solid #ccc"></div></td>
-
-                        </tr>
-                    </table>
-                </div>
-                <div class="col  shadow-sm p-5">
-                    <h4 class="display-6 text-center">What is Lorem Ipsum?</h4>
-                    <table class="columns">
-                        <tr>
-                            <td><div id="barchart_div" style="border: 1px solid #ccc"></div></td>
-
-                        </tr>
-                    </table>
-                </div>
-            </div>
             
-            <div class="row  shadow-sm p-5">
-                <div class="col shadow-sm p-5">
-                    <h2 class="display-6 text-center">What is Lorem Ipsum?</h2>
-                    <table class="columns">
-                        <tr>
-                            <td><div id="line_chart_div" style="border: 1px solid #ccc"></div></td>
+                <div class="row  " id="loading">
+                    <div class="col shadow-sm p-5 mr-2">
 
-                        </tr>
-                    </table>
+                        <h4 class="display-6 text-center" 1>What is Lorem Ipsum?</h4>
+                        <table class="columns">
+                            <tr>
+                                <td><div id="piechart_div" style="border: 1px solid #ccc"></div></td>
+
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col  shadow-sm p-5  ml-2">
+                        <h4 class="display-6 text-center">What is Lorem Ipsum?</h4>
+                        <table class="columns">
+                            <tr>
+                                <td><div id="barchart_div" style="border: 1px solid #ccc"></div></td>
+
+                            </tr>
+                        </table>
+                    </div>
                 </div>
+            
+            
+                <div class="row mt-4">
+                    <div class="col shadow-sm p-5 mr-2">
+                        <h2 class="display-6 text-center">What is Lorem Ipsum?</h2>
+                        <table class="columns">
+                            <tr>
+                                <td><div id="line_chart_div" style="border: 1px solid #ccc"></div></td>
 
-                <div class="col  shadow-sm p-5">
-                    <h2 class="display-6 text-center">What is Lorem Ipsum?</h2>
-                    <table class="columns">
-                        <tr>
-                            <td><div id="donut_chart_div" style="border: 1px solid #ccc"></div></td>
+                            </tr>
+                        </table>
+                    </div>
 
-                        </tr>
-                    </table>
+                    <div class="col  shadow-sm p-5 ml-2">
+                        <h2 class="display-6 text-center">What is Lorem Ipsum?</h2>
+                        <table class="columns">
+                            <tr>
+                                <td><div id="donut_chart_div" style="border: 1px solid #ccc"></div></td>
+
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        </div>
+
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
+   
 
+    
     // Load Charts and the corechart and barchart packages.
     google.charts.load('current', { 'packages': ['corechart'] });
 
     // Draw the pie chart and bar chart when Charts is loaded.
-    google.charts.setOnLoadCallback(drawChart);
 
+    google.charts.setOnLoadCallback(drawChart);
+    
 
     function drawChart() {
 
 
         $.get('/api/victims', {}, function (data) {
+
+            if (data) {
+
+                hideSpinner();
+
+            } else {
+                hideDiv();
+            }
+
+
             // console.log(data)
 
             var tdata = new google.visualization.DataTable();
@@ -167,5 +189,16 @@
             var barchart = new google.visualization.LineChart(document.getElementById('line_chart_div'));
             barchart.draw(rdata, barchart_options);
         });
+        }
+    function hideSpinner() {
+       
+        document.getElementById('spinner')
+            .style.display = 'none';
+    }
+
+    function hideDiv() {
+
+        document.getElementById('loading')
+            .style.display = 'none';
     }
 </script>

@@ -25,6 +25,9 @@ namespace DrcVictim2.Models
         [Required(ErrorMessage = "City is required")]
         [Display(Name = "Ville")]
         public string City { get; set; }
+        [Required(ErrorMessage = " Death Cause is required")]
+        [Display(Name = "Cause de deces")]
+        public VictimCategory VictimCategory { get; set; }
 
         [Required(ErrorMessage = " Number of death is required")]
         public int NumberofDeath { get; set; }

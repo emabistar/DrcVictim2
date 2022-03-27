@@ -1,0 +1,71 @@
+﻿@model LoginVM
+@using DrcVictim2.ViewModels
+
+
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+
+
+
+@if( TempData["Error"] != null)
+            {
+                <div class=" col-md-12  alert alert-danger">
+                    <span><b>Sorry!</b>- @TempData["Error"] </span>
+                </div>
+            }
+
+
+
+<div class=" text-center">
+    <div class="row">
+
+        <div class=" col-md-6  offset-3">
+            <div class="card shadow-sm">
+                <div class="card-body p-5">
+                    <h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
+                    <form asp-action="Login">
+                        <div aps-validation-summary="ModelOnly" class="text-danger">
+                            <div class="mb-3">
+                                <div class=" form-group">
+                                    <label asp-for="EmailAddress" class="control-label"></label>
+                                    <input asp-for="EmailAddress" class="form-control" />
+                                    <span asp-validation-for="EmailAddress" class=" text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class=" form-group">
+                                    <label asp-for="Password" class="control-label"></label>
+                                    <input asp-for="Password" class="form-control" />
+                                    <span asp-validation-for="Password" class=" text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+
+                                <div class=" form-group  ">
+
+
+                                    <input class=" btn btn-outline-success  float-right" type="submit" value=" Log in" />
+                                    <a class=" btn btn-outline-secondary float-left  " asp-controller="Home" asp-action="Index">Cancel</a>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer py-3 border-0">
+                    <div class="text-center">
+                        Don't have an account? <a  asp-controller="Account" asp-action="Register"class="text-dark">Create One</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

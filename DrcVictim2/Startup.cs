@@ -1,11 +1,14 @@
 using DrcVictim2.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VictimData;
+using VictimData.Models;
 using VictimService;
 
 namespace DrcVictim2
@@ -25,7 +28,14 @@ namespace DrcVictim2
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IVictimAsset, VictimAssetService>();
-                services.AddScoped<IRegionAsset, RegionService>();
+            services.AddScoped<IRegionAsset, RegionService>();
+            services.AddIdentity<ApplicationUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +54,11 @@ namespace DrcVictim2
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 
@@ -55,6 +69,8 @@ namespace DrcVictim2
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                   //seed data
                 SeedInitializer.Seed(app);
+             
+               SeedInitializer.SeedUserAndRoleAsync(app).Wait();
             });
         }
     }

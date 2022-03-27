@@ -34,6 +34,7 @@ namespace VictimService
                 RegisteredDate = data.RegisteredDate,
                 NumberofDeath = data.NumberofDeath,
                 City = data.City,
+                VictimCategory =data.VictimCategory,
                 Region = data.Region,
                 Source = data.Source,
                 Rescue = data.Rescue,
@@ -127,6 +128,19 @@ namespace VictimService
             };
 
             return response;
+        }
+
+        public IEnumerable<Victim>GettAllVictims()
+        {
+            return _context.Victims.Include(r => r.Region);
+
+           
+        }
+
+        public Region GetRegionById(int id)
+        {
+            var region = _context.Regions.FirstOrDefault(r=> r.RegionId == id);
+            return region;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace VictimData
     {
       
         Victim GetById(int id);
-       
+        Region GetRegionById(int id);
         int TotalVictims();
         int TotalRescues();
         IEnumerable<ChartData> VictimsPerYear();
@@ -20,6 +20,8 @@ namespace VictimData
         IEnumerable<ChartData> VictimsPerRegion();
         IEnumerable<ChartData> VictimsPerCity();
         Task AddVictimsAsync(Victim data);
+        IEnumerable<Victim> GettAllVictims();
+
         Task<RegionDropdown> GetRegionDropdownValues();
     }
 }

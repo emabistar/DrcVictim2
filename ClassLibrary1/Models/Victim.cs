@@ -29,6 +29,10 @@ namespace VictimData.Models
         [Required(ErrorMessage = " Number of death is required")]
         public int NumberofDeath { get; set; }
 
+        [Required(ErrorMessage = " Death Cause is required")]
+        [Display(Name = "Cause de deces")]
+        public VictimCategory VictimCategory { get; set; }
+
         [Required(ErrorMessage = " Rescue  is required")]
         public int Rescue { get; set; }
 

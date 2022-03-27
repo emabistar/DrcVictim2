@@ -38,11 +38,11 @@ namespace VictimService
           
         }
 
-        public string GetRegion(int id)
+        public Region GetRegion(int id)
         {
             var model = _context.Regions.FirstOrDefault(r => r.RegionId == id);
 
-            return model.Name;
+            return model;
         }
     }
 }

@@ -1,0 +1,44 @@
+﻿@model DrcVictim2.ViewModels.AssetIndexVictimVM
+
+
+@{ 
+    ViewData["title"] = "List of Victims";
+}
+
+<div class="text-center">
+    <h2>List de victims</h2>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th class="pl-5"  scope="col">Date</th>
+            <th class=" pl-5"  scope="col">Region</th>
+            <th  class=" pl-5"  scope="col">City</th>
+            <th class=" pl-5"  scope="col">Rescue</th>
+            <th class=" text-center"  scope="col">Decease</th>
+
+            <th scope="col">Cause</th>
+            <th scope="col">Source</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.Asset)
+        {
+        <tr>
+            <th class="" scope="row"></th>
+            <td class="">@Html.DisplayFor(modelItem => item.RegisteredDate)</td>
+
+            <td class="">@Html.DisplayFor(modelItem => item.City)</td>
+            <td class="">@Html.DisplayFor(modelItem => item.Region.Name)</td>
+            <td class="">@Html.DisplayFor(modelItem => item.Rescue)</td>
+            <td class="">@Html.DisplayFor(modelItem => item.NumberofDeath)</td>
+            <td class="">@Html.DisplayFor(modelItem => item.VictimCategory)</td>
+            <td class="">@Html.DisplayFor(modelItem => item.Source)</td>
+        </tr>
+        }
+
+
+    </tbody>
+</table>

@@ -10,7 +10,7 @@ namespace VictimData
     public interface IRegionAsset
     {
 
-        string GetRegion(int id);
+        Region GetRegion(int id);
         Task AddRegionAsync(Region data);
         void DeleteRegionAsync(int id);
        
